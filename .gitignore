@@ -1,0 +1,43 @@
+# Excel файлы
+*.xls
+*.xlsx
+*.xlsm
+
+# Word файлы
+*.docx
+*.doc
+
+# Временные файлы
+*.tmp
+*.temp
+~$*
+
+# Папки для загрузок
+uploads/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+
+# Результаты обработки
+*_output.txt
+*_with_ukrainian_names.xlsx
+*_with_ukrainian_names.xls
+excel_with_ukrainian_names.*
+articles_output.txt
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Тестовые файлы
+tester.*
+test_*
+
