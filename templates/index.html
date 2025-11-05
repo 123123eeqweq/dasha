@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>✨ Обработка артикулов ✨</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #FFF0F5 0%, #FFE4E1 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(255, 105, 180, 0.2);
+            padding: 40px;
+            margin-top: 20px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .header h1 {
+            color: #8B008B;
+            font-size: 36px;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(255, 105, 180, 0.3);
+        }
+
+        .header p {
+            color: #DA70D6;
+            font-size: 16px;
+            font-style: italic;
+        }
+
+        .form-section {
+            background: #FFE4E1;
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 20px;
+            border: 2px solid #FFB6C1;
+        }
+
+        .form-section h2 {
+            color: #8B008B;
+            font-size: 18px;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .file-input-wrapper {
+            position: relative;
+            display: inline-block;
+            width: 100%;
+        }
+
+        .file-input {
+            width: 100%;
+            padding: 12px;
+            border: 2px dashed #FF69B4;
+            border-radius: 10px;
+            background: white;
+            color: #8B008B;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .file-input:hover {
+            border-color: #FF1493;
+            background: #FFF0F5;
+        }
+
+        .file-list {
+            margin-top: 15px;
+            padding: 10px;
+            background: white;
+            border-radius: 8px;
+            max-height: 150px;
+            overflow-y: auto;
+        }
+
+        .file-item {
+            padding: 8px;
+            margin: 5px 0;
+            background: #FFF0F5;
+            border-radius: 5px;
+            color: #8B008B;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .remove-file {
+            background: #FFB6C1;
+            color: #8B008B;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 12px;
+            transition: all 0.3s;
+        }
+
+        .remove-file:hover {
+            background: #FF69B4;
+            color: white;
+        }
+
+        .btn {
+            background: linear-gradient(135deg, #FF1493 0%, #FF69B4 100%);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            font-weight: bold;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 5px 15px rgba(255, 20, 147, 0.4);
+            display: block;
+            margin: 30px auto;
+            width: 100%;
+            max-width: 400px;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(255, 20, 147, 0.6);
+        }
+
+        .btn:active {
+            transform: translateY(0);
+        }
+
+        .btn-secondary {
+            background: linear-gradient(135deg, #BA55D3 0%, #DA70D6 100%);
+            padding: 10px 20px;
+            font-size: 14px;
+            margin: 5px;
+            display: inline-block;
+            width: auto;
+            max-width: none;
+        }
+
+        .btn-secondary:hover {
+            box-shadow: 0 5px 15px rgba(186, 85, 211, 0.4);
+        }
+
+        .alert {
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            font-weight: 500;
+        }
+
+        .alert-error {
+            background: #FFE4E1;
+            color: #8B008B;
+            border: 2px solid #FF69B4;
+        }
+
+        .alert-success {
+            background: #E6FFE6;
+            color: #006600;
+            border: 2px solid #4CAF50;
+        }
+
+        .alert-warning {
+            background: #FFF8DC;
+            color: #8B6914;
+            border: 2px solid #FFD700;
+        }
+
+        .loading {
+            display: none;
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .loading.active {
+            display: block;
+        }
+
+        .spinner {
+            border: 4px solid #FFE4E1;
+            border-top: 4px solid #FF69B4;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .info-text {
+            color: #8B008B;
+            font-size: 14px;
+            margin-top: 10px;
+            font-style: italic;
+        }
+
+        .file-input-label {
+            display: block;
+            margin-bottom: 10px;
+            color: #8B008B;
+            font-weight: 500;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>✨ Обработка артикулов ✨</h1>
+            <p>Word и Excel файлы</p>
+        </div>
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ category }}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+        <form action="/process" method="post" enctype="multipart/form-data" id="processForm">
+            <!-- Excel файл -->
+            <div class="form-section">
+                <h2>📊 1. Excel файл</h2>
+                <label class="file-input-label">Выберите Excel файл:</label>
+                <div class="file-input-wrapper">
+                    <input type="file" name="excel_file" class="file-input" accept=".xls,.xlsx" required>
+                </div>
+            </div>
+
+            <!-- Word файлы -->
+            <div class="form-section">
+                <h2>📝 2. Word файлы (можно несколько)</h2>
+                <label class="file-input-label">Выберите Word файлы:</label>
+                <div class="file-input-wrapper">
+                    <input type="file" name="word_files" class="file-input" accept=".docx" multiple required>
+                </div>
+                <div class="info-text">💡 Можно выбрать несколько файлов одновременно (Ctrl+Click или Shift+Click)</div>
+                <div id="fileList" class="file-list" style="display: none;"></div>
+            </div>
+
+            <!-- Сохранение -->
+            <div class="form-section">
+                <h2>💾 3. Результат</h2>
+                <p class="info-text">Результат будет автоматически скачан после обработки</p>
+            </div>
+
+            <!-- Кнопка обработки -->
+            <button type="submit" class="btn" id="submitBtn">
+                ✨ Обработать файлы ✨
+            </button>
+
+            <!-- Индикатор загрузки -->
+            <div class="loading" id="loading">
+                <div class="spinner"></div>
+                <p style="margin-top: 15px; color: #8B008B; font-weight: 500;">Обработка файлов...</p>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        // Показываем список выбранных файлов
+        const wordFilesInput = document.querySelector('input[name="word_files"]');
+        const fileList = document.getElementById('fileList');
+
+        wordFilesInput.addEventListener('change', function() {
+            if (this.files.length > 0) {
+                fileList.style.display = 'block';
+                fileList.innerHTML = '';
+                
+                Array.from(this.files).forEach((file, index) => {
+                    const fileItem = document.createElement('div');
+                    fileItem.className = 'file-item';
+                    fileItem.innerHTML = `
+                        <span>${file.name}</span>
+                        <button type="button" class="remove-file" onclick="removeFile(${index})">✖ Удалить</button>
+                    `;
+                    fileList.appendChild(fileItem);
+                });
+            } else {
+                fileList.style.display = 'none';
+            }
+        });
+
+        function removeFile(index) {
+            const dt = new DataTransfer();
+            const files = Array.from(wordFilesInput.files);
+            files.splice(index, 1);
+            
+            files.forEach(file => dt.items.add(file));
+            wordFilesInput.files = dt.files;
+            
+            // Обновляем список
+            wordFilesInput.dispatchEvent(new Event('change'));
+        }
+
+        // Показываем индикатор загрузки при отправке формы
+        document.getElementById('processForm').addEventListener('submit', function() {
+            document.getElementById('loading').classList.add('active');
+            document.getElementById('submitBtn').disabled = true;
+            document.getElementById('submitBtn').textContent = '⏳ Обработка...';
+        });
+    </script>
+</body>
+</html>
+
